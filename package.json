@@ -1,7 +1,7 @@
 {
   "name": "blogapp",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "description": "BlogApp",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,8 @@
   "author": "Aniket Baghel",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
   }
 }
