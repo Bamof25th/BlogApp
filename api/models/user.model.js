@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.schema(
+const userSchema =  new mongoose.Schema(
   {
     username: {
       type: String,
       require: true,
-      unique: true,
+      unique: [true , "please use another username"],
       maxLength: [25, "Name cant be greqater than 25 characters"],
     },
     email: {

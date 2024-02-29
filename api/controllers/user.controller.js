@@ -1,6 +1,6 @@
 
 
-export default Class UserController {
+export default class UserController {
   
   
     signIn = (req, res) =>{
