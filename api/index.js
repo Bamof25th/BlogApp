@@ -14,14 +14,14 @@ const port = process.env.PORT;
 
 // * Routes
 app.use("/api/user", userRoute);
-app.use("/api", AuthRouter);
+app.use("/api/auth", AuthRouter);
 
 // * error handeling midlleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(statusCode).json({
-    susccess: false,
+    success: false,
     statusCode,
     message,
   });

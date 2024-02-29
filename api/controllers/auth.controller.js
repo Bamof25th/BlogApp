@@ -27,7 +27,7 @@ export default class AuthController {
     try {
       await newUser.save();
 
-      res.status(200).send("signed in successfully");
+      res.status(200).json("signed in successfully");
     } catch (error) {
       next(error);
     }
