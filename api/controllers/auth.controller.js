@@ -1,8 +1,9 @@
+import { errorHandler } from "../utils/error.js";
 import User from "./../models/user.model.js";
 import bcryptjs from "bcryptjs";
 
 export default class AuthController {
-  async signUp(req, res) {
+  async signUp(req, res, next) {
     const { username, email, password } = req.body;
 
     if (
@@ -13,7 +14,7 @@ export default class AuthController {
       email === "" ||
       password === ""
     ) {
-      return res.status(400).json({ message: "Please fill all fields" });
+        next(errorHandler(400, "All feilds are required!"));
     }
 
     const hashedPassword = bcryptjs.hashSync(password, 12);
@@ -28,7 +29,7 @@ export default class AuthController {
 
       res.status(200).send("signed in successfully");
     } catch (error) {
-      res.status(500).send(error.message);
+      next(error);
     }
   }
 }
