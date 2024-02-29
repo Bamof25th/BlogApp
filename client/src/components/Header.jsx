@@ -13,7 +13,7 @@ const Header = () => {
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
       >
         <span className="text-emerald-800 px-2 py-1 bg-gradient-to-r from-orange-300 via-red-300 to-pink-400 rounded-lg ">
-          Aniket's
+          {"Aniket's"}
         </span>
         Blog
       </Link>
@@ -28,7 +28,7 @@ const Header = () => {
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
         <AiOutlineSearch />
       </Button>
-      <div className=" flex gap-2 md: order-2">
+      <div className=" flex gap-2 md:order-2">
         <Button className="w-12 h-10 hidden sm: inline " color="gray" pill>
           <FaMoon />
         </Button>
