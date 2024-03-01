@@ -1,7 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsDeviceHdd, BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitterX } from "react-icons/bs";
+import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitterX } from "react-icons/bs";
 const FooterCom = () => {
   return (
     <Footer container className="border border-t-8 border-teal-500  ">
