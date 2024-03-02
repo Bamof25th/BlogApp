@@ -50,7 +50,7 @@ export default class AuthController {
       }
       const token = jwt.sign(
         { userId: validUser._id, username: validUser.username },
-        "ASduhkjbdklba123&*#W&#",
+        process.env.JWT_SECRET_TOKEN,
         { expiresIn: "1d" }
       );
       const { password: pass, ...rest } = validUser._doc;
@@ -61,6 +61,50 @@ export default class AuthController {
         })
         .json(rest);
     } catch (error) {
+      next(error);
+    }
+  };
+
+  googleIn = async (req, res, next) => {
+    const { name, email, googlePhotoUrl } = req.body;
+    console.log(req.body);
+    try {
+      let user = await User.findOne({ email });
+      if (user) {
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_TOKEN);
+        const { password, ...rest } = user._doc;
+        res
+          .status(200)
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .json(rest);
+      } else {
+        const generatedPassword =
+          Math.random().toString(36).slice(-8) +
+          Math.random().toString(36).slice(-8);
+
+        const hashedPassword = bcryptjs.hashSync(generatedPassword, 12);
+        const newUser = new User({
+          username:
+            name.toLowerCase().split(" ").join("") +
+            Math.random().toString(9).slice(-4),
+          email,
+          password: hashedPassword,
+          profilePicture: googlePhotoUrl,
+        });
+        await newUser.save();
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_TOKEN);
+        const { password, ...rest } = user._doc;
+        res
+          .status(200)
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .json(rest);
+      }
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   };
