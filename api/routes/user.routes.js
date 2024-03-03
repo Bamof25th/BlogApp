@@ -1,9 +1,11 @@
 import express from "express";
+import UserController from "../controllers/user.controller.js";
+import { verifyToken } from "../utils/verifyUser.js";
 
 const userRoute = express.Router();
 
-userRoute.get("/", (req, res) => {
-  res.send({ message: "APi is working" });
-});
+const userController = new UserController();
+
+userRoute.put("/update/:userId", verifyToken, userController.updateUser);
 
 export default userRoute;

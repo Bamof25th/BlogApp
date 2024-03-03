@@ -3,10 +3,12 @@ import { connectusingMongoose } from "./config/mongoose.js";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.routes.js";
 import AuthRouter from "./routes/auth.routes.js";
+import cookieParser from "cookie-parser";
 const app = express();
 
 // * Body parser middleware
 app.use(express.json());
+app.use(cookieParser())
 
 //* envs
 dotenv.config();
