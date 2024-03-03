@@ -33,7 +33,7 @@ const Signup = () => {
       });
       let data = await res.json();
       if (data.success === false) {
-         setErrorMessage(data.message);
+        setErrorMessage(data.message);
       }
       setLoading(false);
       if (res.ok) {
@@ -68,7 +68,7 @@ const Signup = () => {
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handelSubmit}>
             <div className="">
-              <Label value="Your Username" className="text-white" />
+              <Label value="Your Username" />
               <TextInput
                 type="text"
                 placeholder="Username"
@@ -77,7 +77,7 @@ const Signup = () => {
               />
             </div>
             <div className="">
-              <Label value="Your Email" className="text-white" />
+              <Label value="Your Email" />
               <TextInput
                 type="email"
                 placeholder="name@company.com"
@@ -86,7 +86,7 @@ const Signup = () => {
               />
             </div>
             <div className="">
-              <Label value="Your Password" className="text-white" />
+              <Label value="Your Password" />
               <TextInput
                 type="password"
                 placeholder="Password"
@@ -108,7 +108,7 @@ const Signup = () => {
                 "Sign Up"
               )}
             </Button>
-            <OAuth/>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account ?</span>
