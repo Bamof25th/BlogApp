@@ -7,6 +7,7 @@ const userRoute = express.Router();
 const userController = new UserController();
 
 userRoute.put("/update/:userId", verifyToken, userController.updateUser);
+userRoute.delete("/delete/:userId", verifyToken, userController.deleteUser);
 
 export default userRoute;
   

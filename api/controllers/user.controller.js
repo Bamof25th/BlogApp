@@ -50,4 +50,18 @@ export default class UserController {
       next(error);
     }
   };
+
+  deleteUser = async (req, res, next) => {
+    if (req.user.userId !== req.params.userId) {
+      return next(
+        errorHandler(401, "You are not allowed to delete this account")
+      );
+    }
+    try {
+      await User.findByIdAndDelete(req.params.userId);
+      res.status(200).json("Account has been deleted");
+    } catch (error) {
+      next(error);
+    }
+  };
 }
