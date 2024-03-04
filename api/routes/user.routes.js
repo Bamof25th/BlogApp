@@ -9,3 +9,4 @@ const userController = new UserController();
 userRoute.put("/update/:userId", verifyToken, userController.updateUser);
 
 export default userRoute;
+  

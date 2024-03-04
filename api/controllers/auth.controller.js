@@ -71,7 +71,7 @@ export default class AuthController {
     try {
       let user = await User.findOne({ email });
       if (user) {
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_TOKEN);
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_TOKEN);
         const { password, ...rest } = user._doc;
         res
           .status(200)
