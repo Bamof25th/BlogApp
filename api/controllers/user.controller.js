@@ -64,4 +64,12 @@ export default class UserController {
       next(error);
     }
   };
+  signOut = async (req, res, next) => {
+    //remove the token from the user
+    try {
+      res.clearCookie("access_token").status(200).json("signOut successfully");
+    } catch (error) {
+      next(error)
+    }
+  };
 }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -5,6 +6,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../app/theme/themeSlice";
+import { signOutSuccess } from "../app/user/userSlice";
 
 const Header = () => {
   //* useSelector to authenticate  user and get search query
@@ -16,7 +18,23 @@ const Header = () => {
 
   //* useDispatch for theme
   const dispatch = useDispatch();
+  //* handelSignout func
+  const handelSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
 
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        return dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <Navbar className="border-b-2 text-emerald-800">
       <Link
@@ -41,7 +59,7 @@ const Header = () => {
       </Button>
       <div className=" flex gap-2 md:order-2">
         <Button
-          className="w-12 h-10 hidden sm: inline "
+          className="w-12 h-10 hidden sm:inline "
           color="gray"
           pill
           onClick={() => dispatch(toggleTheme())}
@@ -66,7 +84,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={handelSignOut}>Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/signin">
