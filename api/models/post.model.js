@@ -20,7 +20,7 @@ const PostSchema = new mongoose.Schema(
       default:
         "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post-760x406.jpeg",
     },
-    category: {
+    catagory: {
       type: String,
       default: "uncategorized",
     },
