@@ -49,7 +49,7 @@ export default class AuthController {
         return next(errorHandler(400, "Incorrect Password"));
       }
       const token = jwt.sign(
-        { userId: validUser._id, username: validUser.username },
+        { userId: validUser._id, isAdmin: validUser.isAdmin },
         process.env.JWT_SECRET_TOKEN,
         { expiresIn: "1d" }
       );
@@ -71,7 +71,10 @@ export default class AuthController {
     try {
       let user = await User.findOne({ email });
       if (user) {
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_TOKEN);
+        const token = jwt.sign(
+          { userId: user._id , isAdmin : user.isAdmin},
+          process.env.JWT_SECRET_TOKEN
+        );
         const { password, ...rest } = user._doc;
         res
           .status(200)
@@ -94,7 +97,10 @@ export default class AuthController {
           profilePicture: googlePhotoUrl,
         });
         await newUser.save();
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_TOKEN);
+        const token = jwt.sign(
+          { id: newUser._id, isAdmin: newUser.isAdmin },
+          process.env.JWT_SECRET_TOKEN
+        );
         const { password, ...rest } = user._doc;
         res
           .status(200)
