@@ -11,6 +11,7 @@ import { app } from "./../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 import {
   updateFailure,
   updateStart,
@@ -22,7 +23,7 @@ import {
 } from "../app/user/userSlice";
 
 const DashProfile = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
 
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -230,9 +231,26 @@ const DashProfile = () => {
           placeholder="********"
           onChange={handelChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToBlue"
+          outline
+          disabled={loading || imageUploading}
+        >
+          {loading ? "loading...":"Update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="submit"
+              gradientDuoTone="tealToLime"
+              className="w-full"
+              outline
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex mt-5 hover:underline justify-between">
         <span className=" cursor-pointer " onClick={() => setShowModal(true)}>
