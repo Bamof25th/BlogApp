@@ -14,7 +14,7 @@ export default class PostController {
       .join("-")
       .toLowerCase()
       .replace(/[^a-zA-Z0-9-]/g, "");
-    console.log(req.user);
+    // console.log(req.user);
     const newPost = new Post({
       ...req.body,
       slug,
@@ -22,7 +22,7 @@ export default class PostController {
     });
     try {
       const savedPost = await newPost.save();
-      console.log(savedPost);
+      // console.log(savedPost);
       res.status(201).json(savedPost);
     } catch (error) {
       next(error);
