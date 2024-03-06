@@ -84,4 +84,27 @@ export default class PostController {
       next(error);
     }
   };
+
+  updatePost = async (req, res, next) => {
+    if (!req.user.isAdmin || req.user.userId !== req.params.userId) {
+      return next(errorHandler(403, "You are not allowed to Edit this post."));
+    }
+    try {
+      const updatedPost = await Post.findByIdAndUpdate(
+        req.params.postId,
+        {
+          $set: {
+            title: req.body.title,
+            content: req.body.content,
+            catagory: req.body.catagory,
+            image: req.body.image,
+          },
+        },
+        { new: true }
+      );
+      res.status(200).json(updatedPost);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
