@@ -8,6 +8,7 @@ const postRouter = express.Router();
 const  postController = new PostController();
 
 postRouter.post('/create', verifyToken , postController.createPost)
+postRouter.get('/getposts',  postController.getPosts)
 
 
 export default postRouter
