@@ -181,7 +181,7 @@ const UpdatePost = () => {
         {formData.image && (
           <img
             src={formData.image}
-            alt="upload"
+            alt="edit"
             className="w-full h-72 object-cover"
           />
         )}
