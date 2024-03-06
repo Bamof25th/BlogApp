@@ -7,8 +7,9 @@ const postRouter = express.Router();
 
 const  postController = new PostController();
 
-postRouter.post('/create', verifyToken , postController.createPost)
-postRouter.get('/getposts',  postController.getPosts)
+postRouter.post('/create', verifyToken , postController.createPost);
+postRouter.get('/getposts',  postController.getPosts);
+postRouter.delete('/deletepost/:postId/:userId',verifyToken, postController.deletePost);
 
 
 export default postRouter
