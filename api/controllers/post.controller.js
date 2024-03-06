@@ -13,15 +13,16 @@ export default class PostController {
       .split(" ")
       .join("-")
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9-]/g, "-");
-
+      .replace(/[^a-zA-Z0-9-]/g, "");
+    console.log(req.user);
     const newPost = new Post({
       ...req.body,
       slug,
-      userId: req.user.id,
+      userId: req.user.userId,
     });
     try {
       const savedPost = await newPost.save();
+      console.log(savedPost);
       res.status(201).json(savedPost);
     } catch (error) {
       next(error);
@@ -48,26 +49,24 @@ export default class PostController {
         .skip(startIndex)
         .limit(limit);
 
-        const totalPosts = await Post.countDocuments();
-        const now = new Date();
+      const totalPosts = await Post.countDocuments();
+      const now = new Date();
 
-        const oneMonthsAgo =  new Date(
-          now.getFullYear(),
-          now.getMonth()-1,
-          now.getDate()
-        )
+      const oneMonthsAgo = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
 
-        const lastMonthPosts = await Post.countDocuments({
-          createdAt: {$gte: oneMonthsAgo}
-        })
+      const lastMonthPosts = await Post.countDocuments({
+        createdAt: { $gte: oneMonthsAgo },
+      });
 
-        res.status(200).json({
-          posts,
-          totalPosts,
-          lastMonthPosts
-        })
-
-
+      res.status(200).json({
+        posts,
+        totalPosts,
+        lastMonthPosts,
+      });
     } catch (error) {
       next(error);
     }
