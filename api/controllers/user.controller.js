@@ -52,7 +52,7 @@ export default class UserController {
   };
 
   deleteUser = async (req, res, next) => {
-    if (req.user.userId !== req.params.userId) {
+    if (!req.user.isAdmin && req.user.userId !== req.params.userId) {
       return next(
         errorHandler(401, "You are not allowed to delete this account")
       );
@@ -89,7 +89,7 @@ export default class UserController {
 
       const usersWithoutPass = users.map((user) => {
         const { password, ...rest } = user._doc;
-        return rest
+        return rest;
       });
 
       const totalUsers = await User.countDocuments();

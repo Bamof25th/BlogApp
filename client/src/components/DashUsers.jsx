@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Modal, Table } from "flowbite-react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { FaCheck ,FaTimes} from 'react-icons/fa';
+import { FaCheck, FaTimes } from "react-icons/fa";
 const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
@@ -48,30 +48,26 @@ const DashUsers = () => {
       console.log(error);
     }
   };
-    const handelDeleteUser = async () => {}
-  //     setShowModal(false);
-  //     try {
-  //       const res = await fetch(
-  //         `/api/user/deletepost/${userIdToDelete}/${currentUser._id}`,
-  //         {
-  //           method: "DELETE",
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       if (!res.ok) {
-  //         console.log(data.message);
-  //       } else {
-  //         setUserPosts((prev) =>
-  //           prev.filter((post) => post._id !== postIdToDelete)
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const handelDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUsers((prev) => prev.filter((post) => post._id !== userIdToDelete));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser.isAdmin && users.length > 0   ? (
+      {currentUser.isAdmin && users.length > 0 ? (
         <>
           <Table hoverable>
             <Table.Head>
@@ -84,7 +80,7 @@ const DashUsers = () => {
             </Table.Head>
             {users.map((user) => (
               <>
-                <Table.Body className="divide-y">
+                <Table.Body className="divide-y" key={user._id}>
                   <Table.Row className="bg-white  dark:border-gray-700 dark:bg-gray-800">
                     <Table.Cell>
                       {new Date(user.createdAt).toLocaleDateString()}
@@ -97,11 +93,13 @@ const DashUsers = () => {
                       />
                     </Table.Cell>
                     <Table.Cell>{user.username}</Table.Cell>
+                    <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>
-                     {user.email}
-                    </Table.Cell>
-                    <Table.Cell>
-                     {user.isAdmin ? (<FaCheck className="text-green-500"/>) : (<FaTimes className="text-red-500"/>)}
+                      {user.isAdmin ? (
+                        <FaCheck className="text-green-500" />
+                      ) : (
+                        <FaTimes className="text-red-500" />
+                      )}
                     </Table.Cell>
                     <Table.Cell>
                       <span
@@ -145,7 +143,7 @@ const DashUsers = () => {
               Are you shure you want to delete the account?
             </h3>
             <div className="h-8 flex justify-center gap-7">
-              <Button color="success" onClick={handelDeleteUser} >
+              <Button color="success" onClick={handelDeleteUser}>
                 {"Yes, I'am sure"}
               </Button>
               <Button color="failure" onClick={() => setShowModal(false)}>
