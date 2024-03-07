@@ -113,7 +113,6 @@ const UpdatePost = () => {
       setPublishError("Something Went Wrong");
     }
   };
-  console.log(formData);
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Update Post</h1>
@@ -142,12 +141,12 @@ const UpdatePost = () => {
             <option value="nextjs">NextJS</option>
             <option value="anime">Anime News</option>
             <option value="football">Football</option>
-            <option value="others">Tech</option>
-            <option value="others">Education</option>
-            <option value="others">IT</option>
-            <option value="others">Web Dev</option>
-            <option value="others">AI</option>
-            <option value="others">Data</option>
+            <option value="tech">Tech</option>
+            <option value="education">Education</option>
+            <option value="it">IT</option>
+            <option value="webdev">Web Dev</option>
+            <option value="ai">AI</option>
+            <option value="data">Data</option>
             <option value="others">Other</option>
           </Select>
         </div>
