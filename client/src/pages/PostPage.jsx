@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "flowbite-react";
 import { Link, useParams } from "react-router-dom";
+import CallToAction from "../components/CallToAction";
 
 const PostPage = () => {
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,7 @@ const PostPage = () => {
       } catch (error) {
         setError(true);
         setLoading(false);
-        console.log(errors);
+        console.log(errors)
       }
     };
     fetchPost();
@@ -69,7 +70,10 @@ const PostPage = () => {
       <div
         dangerouslySetInnerHTML={{ __html: post && post.content }}
         className="p-3 max-w-2xl mx-auto w-full post-content"
-      ></div>
+      />
+      <div className="max-w-4xl mx-auto w-full">
+        <CallToAction />
+      </div>
     </main>
   );
 };
