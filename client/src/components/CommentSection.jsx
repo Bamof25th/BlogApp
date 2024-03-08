@@ -1,14 +1,31 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
+import Comment from "./Comment";
 
 // eslint-disable-next-line react/prop-types
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
-  const [error, setError] = useState("");
+  const [comments, setComments] = useState("");
+  const [error, setError] = useState(null);
+  console.log(comments);
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getcomments/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getComments();
+  }, [postId]);
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +46,7 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComment("");
         setError("");
+        setComments([data,...comments]);
       }
       if (!res.ok) {
         setComment("");
@@ -85,6 +103,21 @@ const CommentSection = ({ postId }) => {
           </div>
           {error && <Alert>{error}</Alert>}
         </form>
+      )}
+      {comments.length === 0 ? (
+        <p className="text-sm my-5">No commets yet!</p>
+      ) : (
+        <>
+          <div className="text-sm my-5 flex items-center gap-1">
+            <p>Comments</p>
+            <div className="border border-gray-400 py-1 px-2 rounded-sm">
+              <p>{comments.length}</p>
+            </div>
+          </div>
+          {comments.map((comment) => (
+            <Comment key={comment._id} comment={comment} />
+          ))}
+        </>
       )}
     </div>
   );

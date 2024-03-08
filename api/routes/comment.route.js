@@ -6,5 +6,6 @@ const commentRouter = express.Router();
 const commentController = new CommentController();
 
 commentRouter.post("/create", verifyToken, commentController.createComment);
+commentRouter.get("/getcomments/:postId", commentController.getComment);
 
 export default commentRouter;

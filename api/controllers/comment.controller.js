@@ -23,4 +23,15 @@ export default class CommentController {
       next(error);
     }
   };
+  getComment = async (req, res, next) => {
+    try {
+      let comments = await Comment.find({ postId: req.params.postId }).sort({
+        createdAt: -1,
+      });
+      //console.log(comments);
+      res.status(201).json(comments);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

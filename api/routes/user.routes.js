@@ -10,5 +10,6 @@ userRoute.put("/update/:userId", verifyToken, userController.updateUser);
 userRoute.delete("/delete/:userId", verifyToken, userController.deleteUser);
 userRoute.post("/signout", userController.signOut);
 userRoute.get("/getusers", verifyToken, userController.getUsers);
+userRoute.get("/:userId", userController.getUser);
 
 export default userRoute;
