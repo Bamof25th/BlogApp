@@ -28,7 +28,7 @@ const CallToAction = () => {
         <img
           src="https://cdn.stackoverflow.co/images/jo7n4k8s/production/eb9774ecfc0d05e8099ed26ee95a02c283b79b8a-630x450.png?rect=0,60,630,331&w=1200&h=630&auto=format&dpr=2"
           alt="call to action"
-          className="h-[300px"
+          className="h-auto"
         />
       </div>
     </div>

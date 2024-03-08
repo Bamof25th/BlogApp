@@ -5,6 +5,7 @@ import userRoute from "./routes/user.routes.js";
 import AuthRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import postRouter from "./routes/post.routes.js";
+import commentRouter from "./routes/comment.route.js";
 const app = express();
 
 // * Body parser middleware
@@ -19,6 +20,7 @@ const port = process.env.PORT;
 app.use("/api/user", userRoute);
 app.use("/api/auth", AuthRouter);
 app.use("/api/post", postRouter);
+app.use("/api/comment", commentRouter);
 
 // * error handeling midlleware
 app.use((err, req, res, next) => {
