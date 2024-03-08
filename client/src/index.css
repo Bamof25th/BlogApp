@@ -30,3 +30,7 @@ body {
 .post-content a:hover {
   text-decoration: underline;
 }
+
+.dark .post-content a{
+  color: red;
+}
