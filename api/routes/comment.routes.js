@@ -12,5 +12,10 @@ commentRouter.put(
   verifyToken,
   commentController.likeComments
 );
+commentRouter.put(
+  "/editcomment/:commentId",
+  verifyToken,
+  commentController.editComments
+);
 
 export default commentRouter;

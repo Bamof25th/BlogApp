@@ -54,4 +54,25 @@ export default class CommentController {
       next(error);
     }
   };
+  editComments = async (req, res, next) => {
+    try {
+      const comment = await Comment.findById(req.params.commentId);
+      if (!comment) {
+        return next(errorHandler(404, "Comment not found"));
+      }
+      if (comment.userId !== req.user.userId && !req.user.isAdmin) {
+        return next(errorHandler(404, "you can not edit this Comment "));
+      }
+      const editedComment = await Comment.findByIdAndUpdate(
+        req.params.commentId,
+        {
+          content: req.body.content,
+        },
+        { new: true }
+      );
+      res.status(201).json(editedComment);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
