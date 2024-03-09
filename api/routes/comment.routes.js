@@ -7,5 +7,10 @@ const commentController = new CommentController();
 
 commentRouter.post("/create", verifyToken, commentController.createComment);
 commentRouter.get("/getcomments/:postId", commentController.getComment);
+commentRouter.put(
+  "/likecomment/:commentId",
+  verifyToken,
+  commentController.likeComments
+);
 
 export default commentRouter;

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
 import Comment from "./Comment";
 
@@ -11,7 +11,8 @@ const CommentSection = ({ postId }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState("");
   const [error, setError] = useState(null);
-  console.log(comments);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -46,7 +47,7 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComment("");
         setError("");
-        setComments([data,...comments]);
+        setComments([data, ...comments]);
       }
       if (!res.ok) {
         setComment("");
@@ -54,6 +55,33 @@ const CommentSection = ({ postId }) => {
       }
     } catch (error) {
       setError(error.message);
+    }
+  };
+  const handelLike = async (commentId) => {
+    try {
+      if (!currentUser) {
+        navigate("/signin");
+        return;
+      }
+      const res = await fetch(`/api/comment/likecomment/${commentId}`, {
+        method: "PUT",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setComments(
+          comments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.likes.length,
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -115,7 +143,7 @@ const CommentSection = ({ postId }) => {
             </div>
           </div>
           {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment key={comment._id} comment={comment} onLike={handelLike} />
           ))}
         </>
       )}

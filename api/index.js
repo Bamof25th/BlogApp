@@ -5,7 +5,7 @@ import userRoute from "./routes/user.routes.js";
 import AuthRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import postRouter from "./routes/post.routes.js";
-import commentRouter from "./routes/comment.route.js";
+import commentRouter from "./routes/comment.routes.js";
 const app = express();
 
 // * Body parser middleware
