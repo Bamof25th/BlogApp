@@ -105,8 +105,6 @@ const CommentSection = ({ postId }) => {
         method: "DELETE",
       });
       if (res.ok) {
-        const data = await res.json();
-
         if (comment._id === commentId) {
           setComments(comments.filter((comment) => comment._id !== commentId));
         }
