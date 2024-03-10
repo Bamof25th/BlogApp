@@ -90,4 +90,34 @@ export default class CommentController {
       next(error);
     }
   };
+  getComments = async (req, res, next) => {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "you can not access this page "));
+    }
+    try {
+      const startIndex = parseInt(req.query.startIndex) || 0;
+      const limit = parseInt(req.query.limit) || 9;
+      const sortDirection = req.query.sort === "desc" ? -1 : 1;
+      const comments = await Comment.find()
+        .sort({ createdAt: sortDirection })
+        .skip(startIndex)
+        .limit(limit);
+      const total = await Comment.countDocuments();
+      const now = new Date();
+
+      const oneMonthsAgo = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
+
+      const lastMontsComment = await Comment.countDocuments({
+        createdAt: { $gte: oneMonthsAgo },
+      });
+
+      res.status(201).json({ comments, total, lastMontsComment });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

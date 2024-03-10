@@ -22,5 +22,6 @@ commentRouter.delete(
   verifyToken,
   commentController.deleteComments
 );
+commentRouter.get("/getcomments", verifyToken, commentController.getComments);
 
 export default commentRouter;
