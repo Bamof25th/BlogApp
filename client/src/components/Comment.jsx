@@ -5,7 +5,7 @@ import { BiLike } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 // eslint-disable-next-line react/prop-types
-const Comment = ({ comment, onLike, onEdit }) => {
+const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState({});
   const [editedContent, setEditedContent] = useState(comment.content);
@@ -26,7 +26,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
     };
     getUsers();
   }, [comment]);
-  const handelEdit =  () => {
+  const handelEdit = () => {
     setIsEditing(true);
     setEditedContent(comment.content);
   };
@@ -126,7 +126,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
                   <button
                     type="button"
                     className="text-gray-400 hover:text-red-500"
-                    // onClick={() => onDelete(comment._id)}
+                    onClick={() => onDelete(comment._id)}
                   >
                     Delete
                   </button>

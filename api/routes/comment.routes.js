@@ -17,5 +17,10 @@ commentRouter.put(
   verifyToken,
   commentController.editComments
 );
+commentRouter.delete(
+  "/delete/:commentId",
+  verifyToken,
+  commentController.deleteComments
+);
 
 export default commentRouter;
