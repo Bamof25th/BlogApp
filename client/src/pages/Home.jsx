@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("/api/post/getposts");
+        const res = await fetch("/api/post/getposts?limit=6");
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -22,7 +22,7 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <div className="flex flex-col gap-6 p-18 px-3 max-w-6xl mx-auto ">
+      <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto ">
         <h1 className="text-3xl font-bold lg:text-6xl ">Welcome to my Blog</h1>
         <p className="text-gray-500 text-sm sm:text-xs">
           Here {"you'll"} find a variety of articles and tutorials on topics
