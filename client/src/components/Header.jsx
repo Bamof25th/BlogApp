@@ -1,18 +1,44 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../app/theme/themeSlice";
 import { signOutSuccess } from "../app/user/userSlice";
 
 const Header = () => {
+  //* UseNavigate
+  const navigate = useNavigate();
+
   //* useSelector to authenticate  user and get search query
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
 
+  //* search bar setup
+  const [searchTerm, setSearchTerm] = React.useState("");
+  console.log(searchTerm);
+  const location = useLocation();
+
+  //* useEffect
+  useEffect(() => {
+    const urlParam = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParam.get(`searchTerm`);
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location]);
+
+  // * handelSubmit
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    const urlParam = new URLSearchParams(location.search);
+    urlParam.set(`searchTerm`, searchTerm);
+    const searchQuery = urlParam.toString();
+    navigate(`/search?${searchQuery}`);
+  };
   //*useLocation  to get the current URL pathname
   const path = useLocation().pathname;
 
@@ -46,12 +72,14 @@ const Header = () => {
         </span>
         Blog
       </Link>
-      <form>
+      <form onSubmit={handelSubmit}>
         <TextInput
           type="text"
           placeholder="Search.."
           rightIcon={AiOutlineSearch}
           className="hidden lg:inline"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
