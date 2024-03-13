@@ -5,7 +5,7 @@ export default class CommentController {
   createComment = async (req, res, next) => {
     try {
       const { userId, postId, content } = req.body;
-      console.log(req.user);
+      
       if (userId !== req.user.userId) {
         return next(
           errorHandler(403, "You are not alllowed to create this comment")

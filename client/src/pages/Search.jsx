@@ -13,7 +13,7 @@ const Search = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(10);
-  console.log(sidebarData);
+
   const location = useLocation();
   const navigate = useNavigate();
 

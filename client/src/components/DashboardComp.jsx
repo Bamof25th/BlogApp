@@ -22,7 +22,7 @@ const DashboardComp = () => {
   const [lastMonthsUsers, setLastMonthsUsers] = useState(0);
   const [lastMonthsComments, setLastMonthsComments] = useState(0);
   const [lastMonthsPosts, setLastMonthsPosts] = useState(0);
-  console.log(users[0]);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -172,7 +172,7 @@ const DashboardComp = () => {
                 <Table.Body key={comment._id} className="divide-y">
                   <Table.Row className="bg-white dark:bg-gray-700 dark:border-gray-800">
                     <Table.Cell className="w-96">
-                        <p className="line-clamp-2">{comment.content}</p>
+                      <p className="line-clamp-2">{comment.content}</p>
                     </Table.Cell>
                     <Table.Cell>{comment.numberOfLikes}</Table.Cell>
                   </Table.Row>
@@ -194,7 +194,7 @@ const DashboardComp = () => {
               <Table.HeadCell>Catagory</Table.HeadCell>
             </Table.Head>
             {posts &&
-                posts.map((post) => (
+              posts.map((post) => (
                 <Table.Body key={post._id} className="divide-y">
                   <Table.Row className="bg-white dark:bg-gray-700 dark:border-gray-800">
                     <Table.Cell>

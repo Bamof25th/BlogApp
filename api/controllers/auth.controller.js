@@ -67,7 +67,7 @@ export default class AuthController {
 
   googleIn = async (req, res, next) => {
     const { name, email, googlePhotoUrl } = req.body;
-    console.log(req.body);
+    
     try {
       let user = await User.findOne({ email });
       if (user) {

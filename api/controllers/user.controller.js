@@ -4,7 +4,6 @@ import User from "./../models/user.model.js";
 
 export default class UserController {
   updateUser = async (req, res, next) => {
-    console.log(req.user);
 
     if (req.user.userId !== req.params.userId) {
       return next(
@@ -19,7 +18,6 @@ export default class UserController {
       }
       req.body.password = bcryptjs.hashSync(req.body.password, 12);
     }
-    console.log(req.body.username);
     if (req.body.username) {
       if (req.body.username.length < 4 || req.body.username.length > 20) {
         return next(

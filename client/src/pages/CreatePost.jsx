@@ -12,7 +12,7 @@ import {
 import { app } from "./../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
@@ -79,13 +79,13 @@ const CreatePost = () => {
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`/post/${data.slug}`)
+        navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something Went Wrong");
     }
   };
-  console.log(formData);
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
