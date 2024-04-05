@@ -16,6 +16,7 @@ import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
 import ScrollToTop from "./components/ScrollToTop";
 import Search from "./pages/Search";
+import Search2 from "./pages/Search2";
 
 const App = () => {
   return (
@@ -26,7 +27,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/search" element={<Search />} />
+        {/* <Route path="/search" element={<Search />} /> */}
+        <Route path="/search" element={<Search2 />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>

@@ -107,12 +107,12 @@ const CreatePost = () => {
             }
           >
             <option value="uncategorized">Select a catagory</option>
-            <option value="javaScript">JavaScript</option>
-            <option value="rectjs">RectJS</option>
+            <option value="javascript">JavaScript</option>
+            <option value="reactjs">RectJS</option>
             <option value="nextjs">NextJS</option>
             <option value="anime">Anime News</option>
             <option value="football">Football</option>
-            <option value="others">Other</option>
+            <option value="other">Other</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dashed p-3">

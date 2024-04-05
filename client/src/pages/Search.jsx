@@ -7,12 +7,12 @@ import PostCard from "../components/PostCard";
 const Search = () => {
   const [sidebarData, setSideBarData] = useState({
     searchTerm: "",
-    sort: "desc",
+    order: "desc",
     catagory: "uncatagorized",
   });
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showMore, setShowMore] = useState(10);
+  const [showMore, setShowMore] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,14 +20,14 @@ const Search = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
-    const sortFromUrl = urlParams.get("sort");
+    const sortFromUrl = urlParams.get("order");
     const catagoryFromUrl = urlParams.get("catagory");
 
     if (searchTermFromUrl || sortFromUrl || catagoryFromUrl) {
       setSideBarData({
         ...sidebarData,
         searchTerm: searchTermFromUrl,
-        sort: sortFromUrl,
+        order: sortFromUrl,
         catagory: catagoryFromUrl,
       });
     }
@@ -58,9 +58,9 @@ const Search = () => {
     if (e.target.id === "searchTerm") {
       setSideBarData({ ...sidebarData, searchTerm: e.target.value });
     }
-    if (e.target.id === "sort") {
+    if (e.target.id === "order") {
       const order = e.target.value || "desc";
-      setSideBarData({ ...sidebarData, sort: order });
+      setSideBarData({ ...sidebarData, order: order });
     }
     if (e.target.id === "catagory") {
       const catagory = e.target.value || "uncategorized";
@@ -71,7 +71,7 @@ const Search = () => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", sidebarData.searchTerm);
-    urlParams.set("sort", sidebarData.sort);
+    urlParams.set("sort", sidebarData.order);
     urlParams.set("catagory", sidebarData.catagory);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
