@@ -60,7 +60,7 @@ You can try out the live demo using the following credentials:
 
 [Live Demo Link](https://bam-blog-app.onrender.com)
 
-![App Demo](https://drive.google.com/file/d/1UsTxvcsEA36AhrX6obc6mBHOtrNiZgU6/view?usp=sharing)
+<img src="https://drive.google.com/file/d/1OMJL4Z5KZsAV4zl-txL7GwbMulGa7RpG/view?usp=sharing" alt="App Demo" width="500" />
 
 ## Technologies Used
 
